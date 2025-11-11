@@ -1,0 +1,48 @@
+body {
+  background: linear-gradient(135deg, #4e73df, #8a2be2);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+  color: #333;
+}
+
+/* Card container */
+.card-custom {
+  background: #ffffffdd;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+.card-custom:hover {
+  transform: translateY(-5px);
+}
+
+/* Buttons */
+.btn-custom {
+  border: none;
+  padding: 0.75rem 1rem;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 500;
+}
+.btn-admin { background-color: #4e73df; }
+.btn-instructor { background-color: #198754; }
+.btn-student { background-color: #0dcaf0; }
+
+.btn-custom:hover {
+  opacity: 0.9;
+}
+
+/* Center alignment */
+.container-custom {
+  max-width: 700px;
+  width: 100%;
+}
+
+.form-check-label {
+  font-size: 0.9rem;
+  color: #666;
+}
