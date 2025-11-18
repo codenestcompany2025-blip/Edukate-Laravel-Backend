@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -35,6 +36,33 @@ class RouteServiceProvider extends ServiceProvider
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
+
+            Route::prefix('admin')
+                ->middleware(['web', 'auth:admin'])
+                ->group(base_path('routes/admin.php'));
+
+            Route::prefix('instructor')
+                ->middleware(['web', 'auth:instructor'])
+                ->group(base_path('routes/instructor.php'));
+
+            Route::prefix('student')
+                ->middleware(['web', 'auth:student'])
+                ->group(base_path('routes/student.php'));
+        });
+
+        Route::macro('authenticate', function (string $prefix, string $guard, string $name) {
+
+            Route::prefix($prefix)->name($name. '.')->controller(AuthController::class)->group(function () use ($guard) {
+                Route::middleware('guest:' . $guard)->group(function () use ($guard) {
+                    Route::get('login', 'indexLogin')->name('login')->defaults('guard', $guard);
+                    Route::post('login', 'login')->name('login.submit')->defaults('guard', $guard);
+                });
+
+                Route::middleware(['auth:' . $guard])->group(function () use ($guard) {
+                    Route::post('logout', 'logout')->name('logout.submit')->defaults('guard', $guard);
+                    Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', $guard);
+                });
+            });
         });
     }
 }
