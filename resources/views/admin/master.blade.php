@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>SB Admin 2 - Dashboard</title>
+    <title>@yield('title')</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('admin_dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
@@ -20,6 +20,22 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('admin_dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
+
+    <!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- DataTables Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap4.min.css">
+
+    <!-- Toastr CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
+
+    <link href="{{ asset('admin_dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+
+
+
+    @yield('css')
 
 </head>
 
@@ -209,8 +225,10 @@
                         <li class="nav-item dropdown no-arrow">
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Ahmed Mosleh</span>
-                                <img class="img-profile rounded-circle" src="img/undraw_profile.svg">
+                                <span
+                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::guard('admin')->user()->name }}</span>
+                                <img src="{{ Avatar::create(Auth::guard('admin')->user()->name)->toBase64() }}"
+                                    alt="avatar" class="rounded-circle" style="width: 40px; height: 40px;">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -241,16 +259,15 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                @yield('content')
-                {{--  
+
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-4 text-gray-800">Blank Page</h1>
+                    @yield('content')
 
                 </div>
                 <!-- /.container-fluid -->
-                --}}
+
             </div>
 
             <!-- End of Main Content -->
@@ -296,6 +313,13 @@
         </div>
     </div>
 
+    <!-- jQuery (required first) -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+    <!-- Popper and Bootstrap 4 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <!-- Bootstrap core JavaScript-->
     <script src="{{ asset('admin_dashboard/vendor/jquery/jquery.min.js') }}"></script>
     <script src="{{ asset('admin_dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -312,6 +336,158 @@
     <!-- Page level custom scripts -->
     <script src="{{ asset('admin_dashboard/js/demo/chart-area-demo.js') }}"></script>
     <script src="{{ asset('admin_dashboard/js/demo/chart-pie-demo.js') }}"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+
+    <!-- Toastr JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+    <script>
+        $('.btn-add').on('click', function(e) {
+            $('input').removeClass('is-invalid');
+            $('select').removeClass('is-invalid');
+            $('.invalid-feedback').text('');
+        });
+
+        $('#add-form').on('submit', function(e) {
+            e.preventDefault();
+            var data = new FormData(this);
+            var url = $(this).attr('action');
+            var type = $(this).attr('method');
+            $.ajax({
+                url: url,
+                type: type,
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function(res) {
+                    toastr.success(res.success);
+                    $('#add-modal').modal('hide');
+                    $('#add-form').trigger('reset');
+                    $('.modal-backdrop').remove();
+                    $('body').removeClass('modal-open');
+                    table.draw();
+                },
+                error: function(data) {
+                    if (data.status === 422) {
+                        var response = data.responseJSON;
+                        $.each(response.errors, function(key, value) {
+                            var str = (key.split("."));
+                            if (str[1] === '0') {
+                                key = str[0] + '[]';
+                            }
+
+                            $('[name="' + key + '"], [name="' + key + '[]"]').addClass(
+                                'is-invalid');
+                            $('[name="' + key + '"], [name="' + key + '[]"]')
+                                .closest('.form-group')
+                                .find('.invalid-feedback')
+                                .html(value[0]);
+                        });
+                    } else {
+                        console.log('خطأ غير متوقع');
+                    }
+                }
+            });
+
+        });
+
+        $('#update-form').on('submit', function(e) {
+            e.preventDefault();
+            var data = new FormData(this);
+            var url = $(this).attr('action');
+            var type = $(this).attr('method');
+            $.ajax({
+                url: url,
+                type: type,
+                processData: false,
+                contentType: false,
+                data: data,
+                success: function(res) {
+                    toastr.success(res.success);
+                    $('#update-modal').modal('hide');
+                    $('.modal-backdrop').remove();
+                    $('body').removeClass('modal-open');
+                    table.draw();
+                },
+            });
+
+        });
+
+        $(document).ready(function() {
+            $(document).on('click', '.btn-delete', function(e) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                var url = $(this).data('url');
+                // Swal for showing Sweet Alert
+                swal({
+                    title: "هل أنت متأكد من الحذف؟",
+                    text: "انتبه عند حذف العنصر لا يمكن التراجع عن العملية",
+                    icon: "warning",
+                    buttons: {
+                        cancel: {
+                            text: "إلغاء",
+                            value: false, // when clicked, set its value to false, so that willDelete will be passed false, execute else part
+                            visible: true,
+                            className: "custom-cancel-btn",
+                            closeModel: true,
+                        },
+                        confirm: {
+                            text: "احذف",
+                            value: true, // when clicked, set its value to true, so that willDelete will be passed true, execute if part
+                            visible: true,
+                            className: "custom-confirm-btn",
+                            closeModel: true,
+                        },
+                    },
+                    dangerMode: true,
+                }).then((willDelete) => {
+                    if (willDelete) {
+                        $.ajax({
+                            url: url,
+                            type: "POST",
+                            data: {
+                                id: id,
+                                _token: "{{ csrf_token() }}"
+                            },
+                            success: function(res) {
+                                toastr.success(res.success);
+                                table.draw();
+                            }
+                        });
+                    } else {
+                        toastr.error('تم إلغاء عملية الحذف');
+                    }
+
+                });
+            });
+        });
+
+        $('#search-btn').on('click', function(e) {
+            e.preventDefault();
+            table.draw();
+        });
+
+        $('#clear-btn').on('click', function(e) {
+            e.preventDefault();
+            $('.search-input').val(''); //.trigger('change');
+            $('.search-input-select').prop('selectedIndex', 0);
+            table.draw();
+        });
+    </script>
+
+    @yield('js')
 
 </body>
 

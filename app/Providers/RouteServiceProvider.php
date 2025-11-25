@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Http\Controllers\Auth\AuthController;
+use App\Http\Controllers;
 use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 use Illuminate\Http\Request;
@@ -52,7 +53,7 @@ class RouteServiceProvider extends ServiceProvider
 
         Route::macro('authenticate', function (string $prefix, string $guard, string $name) {
 
-            Route::prefix($prefix)->name($name. '.')->controller(AuthController::class)->group(function () use ($guard) {
+            Route::prefix($prefix)->name($name . '.')->controller(AuthController::class)->group(function () use ($guard) {
                 Route::middleware('guest:' . $guard)->group(function () use ($guard) {
                     Route::get('login', 'indexLogin')->name('login')->defaults('guard', $guard);
                     Route::post('login', 'login')->name('login.submit')->defaults('guard', $guard);
@@ -62,6 +63,17 @@ class RouteServiceProvider extends ServiceProvider
                     Route::post('logout', 'logout')->name('logout.submit')->defaults('guard', $guard);
                     Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', $guard);
                 });
+            });
+        });
+
+        Route::macro('adminDash', function ($controller, string $name) {
+
+            Route::prefix('admin/dashboard/')->name('admin.')->middleware(['auth:admin'])->controller($controller)->group(function () use ($name) {
+                Route::get($name . '/',  'index')->name($name . '.index');
+                Route::get($name . '/getdata',  'getData')->name($name . '.getData');
+                Route::post($name . '/store',  'store')->name($name . '.store');
+                Route::post($name . '/update',  'update')->name($name . '.update');
+                Route::post($name . '/delete',  'delete')->name($name . '.delete');
             });
         });
     }

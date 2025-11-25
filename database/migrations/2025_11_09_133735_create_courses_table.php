@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->double('price');
-            $table->double('duration');
+            $table->double('duration')->default(0);
             $table->enum('skill_level', ['beginner', 'intermediate', 'advanced'])->default('beginner');
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->foreignId('instructor_id')->constrained('instructors');
             $table->foreignId('category_id')->constrained('categories')->cascadeOnDelete();
             $table->timestamps();

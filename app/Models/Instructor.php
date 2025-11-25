@@ -11,9 +11,9 @@ class Instructor extends Authenticatable
 {
     use HasFactory;
 
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
+
+    public function courses() {
+        return $this->hasMany(Course::class);
+    }
 }

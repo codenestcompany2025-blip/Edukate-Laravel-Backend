@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('instructors', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('qualification');
+            $table->enum('qualification', ['d', 'b', 'm', 'dr']);
             $table->string('major');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('phone')->nullable();
             $table->double('salary');
+            $table->enum('gender', ['m', 'f']);
             $table->timestamps();
         });
     }

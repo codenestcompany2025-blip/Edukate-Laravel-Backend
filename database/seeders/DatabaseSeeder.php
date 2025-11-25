@@ -20,20 +20,33 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        /*
+
         \App\Models\Student::create(
             [
                 'name' => 'Heba',
                 'email' => 'hebanedal608@gmail.com',
                 'password' => Hash::make(123456789),
+                'gender' => 'f',
             ]
         );
-        */
         \App\Models\Admin::create(
             [
                 'name' => 'Ahmed',
                 'email' => 'ahmed@gmail.com',
                 'password' => Hash::make(123456789),
+            ]
+        );
+
+        \App\Models\Instructor::create(
+            [
+                'name' => 'Heba',
+                'email' => 'hebanedal608@gmail.com',
+                'password' => Hash::make(123456789),
+                'qualification' => 'b',
+                'major' => 'software engineering',
+                'phone' => '0594800037',
+                'gender' => 'f',
+                'salary' => 1000,
             ]
         );
     }
