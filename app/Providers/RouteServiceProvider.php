@@ -38,16 +38,13 @@ class RouteServiceProvider extends ServiceProvider
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
 
-            Route::prefix('admin')
-                ->middleware(['web', 'auth:admin'])
+            Route::middleware(['web', 'auth:admin'])
                 ->group(base_path('routes/admin.php'));
 
-            Route::prefix('instructor')
-                ->middleware(['web', 'auth:instructor'])
+            Route::middleware(['web', 'auth:instructor'])
                 ->group(base_path('routes/instructor.php'));
 
-            Route::prefix('student')
-                ->middleware(['web', 'auth:student'])
+            Route::middleware(['web', 'auth:student'])
                 ->group(base_path('routes/student.php'));
         });
 
@@ -63,17 +60,6 @@ class RouteServiceProvider extends ServiceProvider
                     Route::post('logout', 'logout')->name('logout.submit')->defaults('guard', $guard);
                     Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', $guard);
                 });
-            });
-        });
-
-        Route::macro('adminDash', function ($controller, string $name) {
-
-            Route::prefix('admin/dashboard/')->name('admin.')->middleware(['auth:admin'])->controller($controller)->group(function () use ($name) {
-                Route::get($name . '/',  'index')->name($name . '.index');
-                Route::get($name . '/getdata',  'getData')->name($name . '.getData');
-                Route::post($name . '/store',  'store')->name($name . '.store');
-                Route::post($name . '/update',  'update')->name($name . '.update');
-                Route::post($name . '/delete',  'delete')->name($name . '.delete');
             });
         });
     }

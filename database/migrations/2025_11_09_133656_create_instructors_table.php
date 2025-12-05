@@ -22,6 +22,8 @@ return new class extends Migration
             $table->double('salary');
             $table->enum('gender', ['m', 'f']);
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

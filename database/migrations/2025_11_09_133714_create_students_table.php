@@ -20,6 +20,8 @@ return new class extends Migration
             $table->enum('gender', ['m', 'f']);
             $table->date('date_of_birth')->nullable();
             $table->timestamps();
+            $table->softDeletes();
+
         });
     }
 

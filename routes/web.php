@@ -28,7 +28,7 @@ Route::authenticate('admin', 'admin', 'admin');
 Route::authenticate('student', 'student', 'student');
 Route::authenticate('instructor', 'instructor', 'instructor');
 
-Route::adminDash(StudentsController::class, 'students');
+/* Route::adminDash(StudentsController::class, 'students');
 Route::adminDash(InstructorsController::class, 'instructors');
 Route::adminDash(CoursesController::class, 'courses');
-Route::adminDash(CategoriesController::class, 'categories');
+Route::adminDash(CategoriesController::class, 'categories'); */

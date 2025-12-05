@@ -11,29 +11,90 @@
 
     <title>@yield('title')</title>
 
+
     <!-- Custom fonts for this template-->
-    <link href="{{ asset('admin_dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet"
-        type="text/css">
+    <link href="{{ asset('dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link href="{{ asset('admin_dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
-
-    <!-- Bootstrap 4 CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-
-    <!-- DataTables Bootstrap 4 CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.bootstrap4.min.css">
+    <link href="{{ asset('dashboard/css/sb-admin-2.min.css') }}" rel="stylesheet">
 
     <!-- Toastr CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" rel="stylesheet">
 
-    <link href="{{ asset('admin_dashboard/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
+    <!-- Files -->
+    <style>
+        .page-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #3a3b45;
+        }
 
+        .custom-card {
+            border-radius: 14px;
+            padding: 0;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+            border: none;
+        }
 
+        .card-header {
+            background: white !important;
+            border-bottom: none;
+            padding: 18px 25px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #4e73df;
+        }
+
+        .add-btn {
+            background: #4e73df;
+            color: white;
+            border-radius: 8px;
+            padding: 8px 18px;
+            font-size: 14px;
+        }
+
+        table thead tr {
+            background: #f8f9fc;
+            color: #4e73df;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        table tbody td {
+            vertical-align: middle;
+            padding: 14px;
+            font-size: 14px;
+        }
+
+        .action-btn {
+            border: none;
+            padding: 6px 10px;
+            border-radius: 6px;
+            color: #fff;
+            font-size: 13px;
+            margin-right: 4px;
+        }
+
+        .btn-view {
+            background: #36b9cc;
+        }
+
+        .btn-edit {
+            background: #f6c23e;
+        }
+
+        .btn-delete {
+            background: #e74a3b;
+        }
+
+        .badge-pink {
+            background-color: #e83e8c;
+            color: #fff;
+        }
+    </style>
 
     @yield('css')
 
@@ -44,13 +105,14 @@
     <!-- Page Wrapper -->
     <div id="wrapper">
 
-        @include('admin.parts.sidebar')
+        <!-- Sidebar -->
+        @yield('sidebar')
+        <!-- End of Sidebar -->
 
         <!-- Content Wrapper -->
         <div id="content-wrapper" class="d-flex flex-column">
 
             <!-- Main Content -->
-
             <div id="content">
 
                 <!-- Topbar -->
@@ -62,7 +124,7 @@
                     </button>
 
                     <!-- Topbar Search -->
-                    <form
+                    {{-- <form
                         class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
                         <div class="input-group">
                             <input type="text" class="form-control bg-light border-0 small"
@@ -73,13 +135,13 @@
                                 </button>
                             </div>
                         </div>
-                    </form>
+                    </form> --}}
 
                     <!-- Topbar Navbar -->
                     <ul class="navbar-nav ml-auto">
 
                         <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
+                        {{--   <li class="nav-item dropdown no-arrow d-sm-none">
                             <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-search fa-fw"></i>
@@ -100,10 +162,10 @@
                                     </div>
                                 </form>
                             </div>
-                        </li>
+                        </li> --}}
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        {{--     <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
@@ -124,7 +186,8 @@
                                     </div>
                                     <div>
                                         <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
+                                        <span class="font-weight-bold">A new monthly report is ready to
+                                            download!</span>
                                     </div>
                                 </a>
                                 <a class="dropdown-item d-flex align-items-center" href="#">
@@ -152,10 +215,10 @@
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All
                                     Alerts</a>
                             </div>
-                        </li>
+                        </li> --}}
 
                         <!-- Nav Item - Messages -->
-                        <li class="nav-item dropdown no-arrow mx-1">
+                        {{--   <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-envelope fa-fw"></i>
@@ -217,59 +280,47 @@
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Read More
                                     Messages</a>
                             </div>
-                        </li>
+                        </li> --}}
 
-                        <div class="topbar-divider d-none d-sm-block"></div>
+                        {{-- <div class="topbar-divider d-none d-sm-block"></div> --}}
 
                         <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span
-                                    class="mr-2 d-none d-lg-inline text-gray-600 small">{{ Auth::guard('admin')->user()->name }}</span>
-                                <img src="{{ Avatar::create(Auth::guard('admin')->user()->name)->toBase64() }}"
-                                    alt="avatar" class="rounded-circle" style="width: 40px; height: 40px;">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Profile
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Settings
-                                </a>
-                                <a class="dropdown-item" href="#">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Activity Log
-                                </a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal"
-                                    data-target="#logoutModal">
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-                            </div>
-                        </li>
+                        @yield('user')
 
                     </ul>
+
                 </nav>
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-
                 <div class="container-fluid">
 
-                    <!-- Page Heading -->
+                    @if (session('success'))
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            {{ session('success') }}
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error-alert">
+                            <strong>There were some problems:</strong>
+                            <ul class="mb-0">
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                    @endif
+
                     @yield('content')
-
                 </div>
-                <!-- /.container-fluid -->
-
             </div>
-
             <!-- End of Main Content -->
 
             <!-- Footer -->
@@ -313,181 +364,31 @@
         </div>
     </div>
 
-    <!-- jQuery (required first) -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <!-- Popper and Bootstrap 4 JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <!-- Bootstrap core JavaScript-->
-    <script src="{{ asset('admin_dashboard/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset('admin_dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('dashboard/vendor/jquery/jquery.min.js') }}"></script>
+    <script src="{{ asset('dashboard/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
     <!-- Core plugin JavaScript-->
-    <script src="{{ asset('admin_dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
+    <script src="{{ asset('dashboard/vendor/jquery-easing/jquery.easing.min.js') }}"></script>
 
     <!-- Custom scripts for all pages-->
-    <script src="{{ asset('admin_dashboard/js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('dashboard/js/sb-admin-2.min.js') }}"></script>
 
     <!-- Page level plugins -->
-    <script src="{{ asset('admin_dashboard/vendor/chart.js/Chart.min.js') }}"></script>
+    <script src="{{ asset('dashboard/vendor/chart.js/Chart.min.js') }}"></script>
 
     <!-- Page level custom scripts -->
-    <script src="{{ asset('admin_dashboard/js/demo/chart-area-demo.js') }}"></script>
-    <script src="{{ asset('admin_dashboard/js/demo/chart-pie-demo.js') }}"></script>
-
-    <!-- DataTables JS -->
-    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/responsive/2.5.0/js/responsive.bootstrap4.min.js"></script>
+    <script src="{{ asset('dashboard/js/demo/chart-area-demo.js') }}"></script>
+    <script src="{{ asset('dashboard/js/demo/chart-pie-demo.js') }}"></script>
 
     <!-- Sweet Alert -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-
 
     <!-- Toastr JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
 
-    <script>
-        $('.btn-add').on('click', function(e) {
-            $('input').removeClass('is-invalid');
-            $('select').removeClass('is-invalid');
-            $('.invalid-feedback').text('');
-        });
-
-        $('#add-form').on('submit', function(e) {
-            e.preventDefault();
-            var data = new FormData(this);
-            var url = $(this).attr('action');
-            var type = $(this).attr('method');
-            $.ajax({
-                url: url,
-                type: type,
-                processData: false,
-                contentType: false,
-                data: data,
-                success: function(res) {
-                    toastr.success(res.success);
-                    $('#add-modal').modal('hide');
-                    $('#add-form').trigger('reset');
-                    $('.modal-backdrop').remove();
-                    $('body').removeClass('modal-open');
-                    table.draw();
-                },
-                error: function(data) {
-                    if (data.status === 422) {
-                        var response = data.responseJSON;
-                        $.each(response.errors, function(key, value) {
-                            var str = (key.split("."));
-                            if (str[1] === '0') {
-                                key = str[0] + '[]';
-                            }
-
-                            $('[name="' + key + '"], [name="' + key + '[]"]').addClass(
-                                'is-invalid');
-                            $('[name="' + key + '"], [name="' + key + '[]"]')
-                                .closest('.form-group')
-                                .find('.invalid-feedback')
-                                .html(value[0]);
-                        });
-                    } else {
-                        console.log('خطأ غير متوقع');
-                    }
-                }
-            });
-
-        });
-
-        $('#update-form').on('submit', function(e) {
-            e.preventDefault();
-            var data = new FormData(this);
-            var url = $(this).attr('action');
-            var type = $(this).attr('method');
-            $.ajax({
-                url: url,
-                type: type,
-                processData: false,
-                contentType: false,
-                data: data,
-                success: function(res) {
-                    toastr.success(res.success);
-                    $('#update-modal').modal('hide');
-                    $('.modal-backdrop').remove();
-                    $('body').removeClass('modal-open');
-                    table.draw();
-                },
-            });
-
-        });
-
-        $(document).ready(function() {
-            $(document).on('click', '.btn-delete', function(e) {
-                e.preventDefault();
-                var id = $(this).data('id');
-                var url = $(this).data('url');
-                // Swal for showing Sweet Alert
-                swal({
-                    title: "هل أنت متأكد من الحذف؟",
-                    text: "انتبه عند حذف العنصر لا يمكن التراجع عن العملية",
-                    icon: "warning",
-                    buttons: {
-                        cancel: {
-                            text: "إلغاء",
-                            value: false, // when clicked, set its value to false, so that willDelete will be passed false, execute else part
-                            visible: true,
-                            className: "custom-cancel-btn",
-                            closeModel: true,
-                        },
-                        confirm: {
-                            text: "احذف",
-                            value: true, // when clicked, set its value to true, so that willDelete will be passed true, execute if part
-                            visible: true,
-                            className: "custom-confirm-btn",
-                            closeModel: true,
-                        },
-                    },
-                    dangerMode: true,
-                }).then((willDelete) => {
-                    if (willDelete) {
-                        $.ajax({
-                            url: url,
-                            type: "POST",
-                            data: {
-                                id: id,
-                                _token: "{{ csrf_token() }}"
-                            },
-                            success: function(res) {
-                                toastr.success(res.success);
-                                table.draw();
-                            }
-                        });
-                    } else {
-                        toastr.error('تم إلغاء عملية الحذف');
-                    }
-
-                });
-            });
-        });
-
-        $('#search-btn').on('click', function(e) {
-            e.preventDefault();
-            table.draw();
-        });
-
-        $('#clear-btn').on('click', function(e) {
-            e.preventDefault();
-            $('.search-input').val(''); //.trigger('change');
-            $('.search-input-select').prop('selectedIndex', 0);
-            table.draw();
-        });
-    </script>
-
-    @yield('js')
 
 </body>
 

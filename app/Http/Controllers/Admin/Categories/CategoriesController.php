@@ -9,92 +9,53 @@ use Yajra\DataTables\Facades\DataTables;
 
 class CategoriesController extends Controller
 {
-    function index()
+    public function index()
     {
-        return view('admin.categories.index');
+        $categories = Category::paginate(5);
+
+        return view('dashboard.admin.categories.index', compact('categories'));
     }
 
-    function getData(Request $request)
+    public function create()
     {
-        //dd($request->all());
-        $categories = Category::query();
-        return DataTables::of($categories)
-            ->addIndexColumn()
-            ->addColumn('action', function ($qur) {
-                $data_attr = '';
-                $data_attr = 'data-id="' . $qur->id . '" ';
-                $data_attr .= 'data-name="' . $qur->name . '" ';
-
-                $action = '';
-                $action .= '<div class="d-flex align-items-center gap-5 fs-6">';
-
-                $action .= '<a ' . $data_attr . ' data-toggle="modal" data-target="#update-modal"
-                            href="javascript:;" class="text-warning btn-update"
-                            data-placement="bottom" title="Edit info" aria-label="Edit">
-                            <i class="fas fa-edit"></i>
-                            </a>';
-
-
-                $action .= '<a data-id="' . $qur->id . '" data-url="' . route('admin.categories.delete') . '" 
-                            href="javascript:;" class="text-danger btn-delete" data-toggle="tooltip"
-                            data-placement="bottom" title="" data-original-title="Delete"
-                            aria-label="Delete"><i class="fas fa-trash-alt"></i></a> ';
-
-                $action .= '</div>';
-                return $action;
-            })
-
-            ->rawColumns(['action'])
-            ->make(true);
+        return view('dashboard.admin.categories.create');
     }
 
-    function store(Request $request)
+    public function store(Request $request)
     {
-        //dd($request->all());
-        $request->validate(
-            [
-                'name' => ['required', 'string', 'max:255'],
-            ]
-        );
+
+        // dd($request->all());
 
         Category::create([
             'name' => $request->name,
         ]);
 
-        return response()->json([
-            'success' => 'تمت العملية بنجاح'
-        ]);
+        return redirect()->route('admin.categories.index')
+            ->with('success', 'Category created successfully!');
+    }
+
+    public function edit(Category $category)
+    {
+        return view('dashboard.admin.categories.edit', compact('category'));
     }
 
 
-    function update(Request $request)
+    public function update(Request $request, Category $category)
     {
-        //dd($request->all());
-        $category = Category::query()->findOrFail($request->id);
-        $request->validate(
-            [
-                'name' => ['required', 'string', 'max:255'],
-            ]
-        );
 
         $category->update([
             'name' => $request->name,
         ]);
 
-        return response()->json([
-            'success' => 'تمت العملية بنجاح'
-        ]);
+        return redirect()->route('admin.categories.index')
+            ->with('success', 'Category updated successfully!');
     }
 
-    function delete(Request $request)
+    public function destroy(Category $category)
     {
-        // dd($request->all());
-        $category = Category::query()->findOrFail($request->id);
-        if ($category) {
-          $category->delete();
-        }
-        return response()->json([
-            'success' => 'تمت العملية بنجاح'
-        ]);
+        $category->delete();
+
+        return redirect()->route('admin.categories.index')
+            ->with('success', 'Category deleted successfully!');
     }
 }

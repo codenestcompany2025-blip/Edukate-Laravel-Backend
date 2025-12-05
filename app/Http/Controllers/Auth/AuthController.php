@@ -35,9 +35,4 @@ class AuthController extends Controller
         Auth::guard($guard)->logout();
         return redirect()->route($guard . '.login');
     }
-
-    function dashboard(Request $request){
-        $guard = $request->route('guard');
-        return view($guard. '.dashboard');
-    }
 }

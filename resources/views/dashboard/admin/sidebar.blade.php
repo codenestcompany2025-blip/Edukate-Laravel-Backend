@@ -14,20 +14,13 @@
 
      <!-- Nav Item - Dashboard -->
      <li class="nav-item active">
-         <a class="nav-link" href="{{ route('admin.dashboard') }}">
+         <a class="nav-link" href="">
              <i class="fas fa-fw fa-tachometer-alt"></i>
              <span>Dashboard</span></a>
      </li>
 
      <!-- Divider -->
      <hr class="sidebar-divider">
-
-     <!-- Heading -->
-     {{-- 
-     <div class="sidebar-heading">
-         Interface
-     </div>
-      --}}
 
      <!-- Nav Item - Pages Collapse Menu -->
      <li class="nav-item">
@@ -39,6 +32,7 @@
          <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
                  <a class="collapse-item" href="{{ route('admin.instructors.index') }}">All Instructors</a>
+                 <a class="collapse-item" href="{{ route('admin.instructors.create') }}">Add Instructors</a>
              </div>
          </div>
      </li>
@@ -57,20 +51,13 @@
              data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
                  <a class="collapse-item" href="{{ route('admin.categories.index') }}">All Categories</a>
+                 <a class="collapse-item" href="{{ route('admin.categories.create') }}">Add Categories</a>
              </div>
          </div>
      </li>
 
      <!-- Divider -->
      <hr class="sidebar-divider">
-
-     <!-- Heading -->
-     {{-- 
-     <div class="sidebar-heading">
-         Addons
-     </div>
-      --}}
-
 
      <!-- Nav Item - Pages Collapse Menu -->
      <li class="nav-item">
@@ -82,6 +69,7 @@
          <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
                  <a class="collapse-item" href="{{ route('admin.courses.index') }}">All Courses</a>
+                 <a class="collapse-item" href="{{ route('admin.courses.create') }}">Add Courses</a>
              </div>
          </div>
      </li>
@@ -100,43 +88,45 @@
          <div id="collapsePage" class="collapse" aria-labelledby="headingPage" data-parent="#accordionSidebar">
              <div class="bg-white py-2 collapse-inner rounded">
                  <a class="collapse-item" href="{{ route('admin.students.index') }}">All Students</a>
+                 <a class="collapse-item" href="{{ route('admin.students.create') }}">Add Students</a>
              </div>
          </div>
      </li>
-     {{--
-       <!-- Nav Item - Charts -->
+
+      <!-- Divider -->
+     <hr class="sidebar-divider">
+
+     <!-- Nav Item - Pages Collapse Menu -->
      <li class="nav-item">
-         <a class="nav-link" href="charts.html">
-             <i class="fas fa-fw fa-chart-area"></i>
-             <span>Charts</span></a>
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseStudentCourse"
+             aria-expanded="true" aria-controls="collapseStudentCourse">
+             <i class="fas fa-graduation-cap"></i>
+             <span>Student Courses</span>
+         </a>
+         <div id="collapseStudentCourse" class="collapse" aria-labelledby="headingStudentCourse" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item" href="{{ route('admin.student_courses.index') }}">All Students - Courses</a>
+                 <a class="collapse-item" href="{{ route('admin.student_courses.create') }}">Add Student - Course</a>
+             </div>
+         </div>
      </li>
 
-     <!-- Nav Item - Tables -->
+       <!-- Divider -->
+     <hr class="sidebar-divider">
+
+     <!-- Nav Item - Pages Collapse Menu -->
      <li class="nav-item">
-         <a class="nav-link" href="tables.html">
-             <i class="fas fa-fw fa-table"></i>
-             <span>Tables</span></a>
+         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTestimonials"
+             aria-expanded="true" aria-controls="collapseTestimonials">
+             <i class="fas fa-comment"></i>
+             <span>Testimonial</span>
+         </a>
+         <div id="collapseTestimonials" class="collapse" aria-labelledby="headingTestimonials" data-parent="#accordionSidebar">
+             <div class="bg-white py-2 collapse-inner rounded">
+                 <a class="collapse-item" href="{{ route('admin.testimonials.index') }}">All Testimonials</a>
+                 <a class="collapse-item" href="{{ route('admin.testimonials.create') }}">Add Testimonial</a>
+             </div>
+         </div>
      </li>
-
-     <!-- Divider -->
-     <hr class="sidebar-divider d-none d-md-block">
-
-     <!-- Sidebar Toggler (Sidebar) -->
-     <div class="text-center d-none d-md-inline">
-         <button class="rounded-circle border-0" id="sidebarToggle"></button>
-     </div>
-
-     <!-- Sidebar Message -->
-     <div class="sidebar-card d-none d-lg-flex">
-         <img class="sidebar-card-illustration mb-2" src="{{ asset('admin_dashboard/img/undraw_rocket.svg') }}"
-             alt="...">
-         <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components,
-             and more!</p>
-         <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to
-             Pro!</a>
-     </div>
-      --}}
-
-
  </ul>
  <!-- End of Sidebar -->
