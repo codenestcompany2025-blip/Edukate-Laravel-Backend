@@ -43,7 +43,8 @@
                                 Unknown
                         @endswitch
                     </p>
-                    <p><i class="fas fa-money-bill-wave mr-2 text-muted"></i><strong>Salary:</strong> ${{ number_format($instructor->salary, 2) }}</p>
+                    <p><i class="fas fa-money-bill-wave mr-2 text-muted"></i><strong>Salary:</strong>
+                        ${{ number_format($instructor->salary, 2) }}</p>
                 </div>
                 <div class="col-md-6">
                     <p><i class="fas fa-venus-mars mr-2 text-muted"></i><strong>Gender:</strong>
@@ -58,8 +59,10 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-end">
-        <a href="{{ route('admin.instructors.edit', $instructor->id) }}" class="btn btn-warning mr-2">
+    <div class="d-flex justify-content-end gap-2">
+        <a href="{{ route('admin.instructors.edit', $instructor->id) }}"
+            class="btn btn-warning d-flex align-items-center justify-content-center mr-2" style="width: 40px; height: 40px;"
+            title="Edit">
             <i class="fas fa-edit" aria-hidden="true"></i>
             <span class="sr-only">Edit</span>
         </a>
@@ -68,11 +71,13 @@
             onsubmit="return confirm('Are you sure you want to delete this instructor?');">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger">
+            <button type="submit" class="btn btn-danger d-flex align-items-center justify-content-center"
+                style="width: 40px; height: 40px;" title="Delete">
                 <i class="fas fa-trash" aria-hidden="true"></i>
-                <span class="sr-only">Delete</span>\
+                <span class="sr-only">Delete</span>
             </button>
         </form>
     </div>
+
 
 @endsection

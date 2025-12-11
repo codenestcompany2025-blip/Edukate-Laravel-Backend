@@ -55,17 +55,22 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-end">
-        <a href="{{ route('admin.students.edit', $student->id) }}" class="btn btn-warning mr-2">
-            <i class="fas fa-edit"></i> Edit
+    <div class="d-flex justify-content-end gap-2">
+        <a href="{{ route('admin.students.edit', $student->id) }}"
+            class="btn btn-warning d-flex align-items-center justify-content-center mr-2" style="width: 40px; height: 40px;"
+            title="Edit">
+            <i class="fas fa-edit" aria-hidden="true"></i>
+            <span class="sr-only">Edit</span>
         </a>
 
         <form action="{{ route('admin.students.destroy', $student->id) }}" method="POST"
-            onsubmit="return confirm('Are you sure you want to delete this student?');">
+            onsubmit="return confirm('Are you sure you want to delete this instructor?');">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger">
-                <i class="fas fa-trash"></i> Delete
+            <button type="submit" class="btn btn-danger d-flex align-items-center justify-content-center"
+                style="width: 40px; height: 40px;" title="Delete">
+                <i class="fas fa-trash" aria-hidden="true"></i>
+                <span class="sr-only">Delete</span>
             </button>
         </form>
     </div>

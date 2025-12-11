@@ -49,7 +49,7 @@ class CoursesController extends Controller
             'description'   => $request->description,
             'price'         => $request->price,
             'duration'      => $request->duration,
-            'image'         => $request->image,
+            'image'         => $name,
             'skill_level'   => $request->skill_level,
             'instructor_id' => $request->instructor_id,
             'category_id'   => $request->category_id,
@@ -74,7 +74,7 @@ class CoursesController extends Controller
 
         if ($request->image) {
             $name = 'Edukate' . '_' . time() . '_' . rand() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('profile_img')->move(public_path('uploads/images/courses'), $name);
+            $request->file('image')->move(public_path('uploads/images/courses'), $name);
         }
 
         $course->update([
@@ -82,7 +82,7 @@ class CoursesController extends Controller
             'description'   => $request->description,
             'price'         => $request->price,
             'duration'      => $request->duration,
-            'image'         => $request->image,
+            'image'         => $name,
             'skill_level'   => $request->skill_level,
             'instructor_id' => $request->instructor_id,
             'category_id'   => $request->category_id,

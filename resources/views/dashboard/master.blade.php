@@ -71,11 +71,14 @@
 
         .action-btn {
             border: none;
-            padding: 6px 10px;
-            border-radius: 6px;
             color: #fff;
-            font-size: 13px;
-            margin-right: 4px;
+            width: 36px;
+            height: 36px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            padding: 0;
         }
 
         .btn-view {

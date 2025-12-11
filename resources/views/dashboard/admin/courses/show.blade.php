@@ -21,7 +21,7 @@
                 @if ($course->image)
                     <div class="col-md-4 text-center">
                         <img src="{{ asset('uploads/images/courses/' . $course->image) }}" alt="{{ $course->name }}"
-                            class="img-fluid rounded-circle shadow-sm border" width="300" height="300">
+                            class="img-fluid rounded-circle shadow-sm border" width="150" height="150">
                     </div>
                 @endif
 
@@ -70,17 +70,20 @@
         </div>
     </div>
 
-    <div class="d-flex justify-content-end">
-        <a href="{{ route('admin.courses.edit', $course->id) }}" class="btn btn-warning mr-2">
+    <div class="d-flex justify-content-end gap-2">
+        <a href="{{ route('admin.courses.edit', $course->id) }}"
+            class="btn btn-warning d-flex align-items-center justify-content-center mr-2" style="width: 40px; height: 40px;"
+            title="Edit">
             <i class="fas fa-edit" aria-hidden="true"></i>
             <span class="sr-only">Edit</span>
         </a>
 
         <form action="{{ route('admin.courses.destroy', $course->id) }}" method="POST"
-            onsubmit="return confirm('Are you sure you want to delete this course?');">
+            onsubmit="return confirm('Are you sure you want to delete this instructor?');">
             @csrf
             @method('DELETE')
-            <button type="submit" class="btn btn-danger">
+            <button type="submit" class="btn btn-danger d-flex align-items-center justify-content-center"
+                style="width: 40px; height: 40px;" title="Delete">
                 <i class="fas fa-trash" aria-hidden="true"></i>
                 <span class="sr-only">Delete</span>
             </button>

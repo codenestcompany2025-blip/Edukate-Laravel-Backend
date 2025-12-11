@@ -3,6 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\Course;
+use App\Models\Instructor;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -11,7 +15,14 @@ class AdminController extends Controller
 {
     function index()
     {
-        return view('dashboard.admin.index');
+        return view('dashboard.admin.index', [
+            'instructorsCount' => Instructor::count(),
+            'studentsCount'    => Student::count(),
+            'coursesCount'     => Course::count(),
+            'categoriesCount'  => Category::count(),
+            'latestCourses'    => Course::latest()->take(5)->get(),
+            'latestStudents'   => Student::latest()->take(5)->get(),
+        ]);
     }
 
     function profile()

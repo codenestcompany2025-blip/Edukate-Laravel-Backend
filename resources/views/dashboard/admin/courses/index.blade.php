@@ -67,7 +67,7 @@
 
                                 <td>
                                     @if ($course->image)
-                                        <img src="{{ asset('uploads/images/students/' . $course->image) }}"
+                                        <img src="{{ asset('uploads/images/courses/' . $course->image) }}"
                                             alt="{{ $course->name }}" class="img-thumbnail" width="60" height="60">
                                     @else
                                         <span class="text-muted">No image</span>
