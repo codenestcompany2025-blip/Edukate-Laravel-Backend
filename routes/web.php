@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\Courses\CoursesController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Admin\Instructors\InstructorsController;
 use App\Http\Controllers\Admin\Students\StudentsController;
+use App\Http\Controllers\Site\SiteController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,7 +29,14 @@ Route::authenticate('admin', 'admin', 'admin');
 Route::authenticate('student', 'student', 'student');
 Route::authenticate('instructor', 'instructor', 'instructor');
 
-/* Route::adminDash(StudentsController::class, 'students');
-Route::adminDash(InstructorsController::class, 'instructors');
-Route::adminDash(CoursesController::class, 'courses');
-Route::adminDash(CategoriesController::class, 'categories'); */
+Route::prefix('edukate/')->controller(SiteController::class)->name('site.')->group(function () {
+    Route::get('/', 'index')->name('index');
+    Route::get('/about', 'about')->name('about');
+    Route::get('/contact', 'contact')->name('contact');
+    Route::get('/join', 'join')->name('join');
+    Route::get('/course', 'course')->name('course');
+    Route::get('/detail', 'detail')->name('detail');
+    Route::get('/feature', 'feature')->name('feature');
+    Route::get('/team', 'team')->name('team');
+    Route::get('/testimonial', 'testimonial')->name('testimonial');
+});
