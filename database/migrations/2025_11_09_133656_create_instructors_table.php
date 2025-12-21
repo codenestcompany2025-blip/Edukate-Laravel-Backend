@@ -23,7 +23,6 @@ return new class extends Migration
             $table->enum('gender', ['m', 'f']);
             $table->timestamps();
             $table->softDeletes();
-
         });
     }
 

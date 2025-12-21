@@ -35,7 +35,7 @@ Route::prefix('edukate/')->controller(SiteController::class)->name('site.')->gro
     Route::get('/contact', 'contact')->name('contact');
     Route::get('/join', 'join')->name('join');
     Route::get('/course', 'course')->name('course');
-    Route::get('/detail', 'detail')->name('detail');
+    Route::get('/course/{id}/details', 'detail')->name('detail');
     Route::get('/feature', 'feature')->name('feature');
     Route::get('/team', 'team')->name('team');
     Route::get('/testimonial', 'testimonial')->name('testimonial');

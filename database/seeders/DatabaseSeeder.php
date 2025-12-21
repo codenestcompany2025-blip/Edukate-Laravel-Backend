@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use App\Models\Testimonial;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
@@ -49,5 +51,6 @@ class DatabaseSeeder extends Seeder
                 'salary' => 1000,
             ]
         );
+
     }
 }

@@ -34,6 +34,7 @@
                             <th>#</th>
                             <th>Name</th>
                             <th>Email</th>
+                            <th>Profile Image</th>
                             <th>Major</th>
                             <th>Qualification</th>
                             <th>Salary ($)</th>
@@ -53,6 +54,18 @@
                                 </td>
 
                                 <td>{{ $instructor->email }}</td>
+
+                                <td>
+                                    @if ($instructor->image)
+                                        <img src="{{ asset('uploads/images/instructors/' . $instructor->image->url) }}"
+                                            alt="{{ $instructor->name }}" class="img-thumbnail rounded-circle" width="50"
+                                            height="50">
+                                    @else
+                                        <span class="text-muted">No image</span>
+                                    @endif
+
+                                </td>
+
                                 <td>{{ $instructor->major }}</td>
 
                                 <td>

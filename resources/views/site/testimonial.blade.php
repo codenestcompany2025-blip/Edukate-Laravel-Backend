@@ -29,7 +29,22 @@
                 </div>
                 <div class="col-lg-7">
                     <div class="owl-carousel testimonial-carousel">
-                        <div class="bg-light p-5">
+                        @foreach ($testimonials as $testimonial)
+                            <div class="bg-light p-5">
+                                <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
+                                <p>{{ $testimonial->comment }}</p>
+                                <div class="d-flex flex-shrink-0 align-items-center mt-4">
+                                    <img class="img-fluid mr-4" style="height: 80px; width: 80px; overflow: hidden;"  src="{{ asset('uploads/images/testimonials/' . $testimonial->image->url) }}"
+                                        alt="">
+                                    <div>
+                                        <h5>{{ $testimonial->student_name }}</h5>
+                                        <span>{{ $testimonial->specialization }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                       {{--  <div class="bg-light p-5">
                             <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
                             <p>Sed et elitr ipsum labore dolor diam, ipsum duo vero sed sit est est ipsum eos clita est
                                 ipsum. Est nonumy tempor at kasd. Sed at dolor duo ut dolor, et justo erat dolor magna sed
@@ -54,7 +69,7 @@
                                     <span>Web Design</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

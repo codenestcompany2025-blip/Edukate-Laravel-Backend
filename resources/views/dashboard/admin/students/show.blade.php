@@ -19,9 +19,9 @@
 
         <div class="card-body">
             <div class="row g-4 align-items-center">
-                @if ($student->profile_image)
+                @if ($student->image)
                     <div class="col-md-4 text-center">
-                        <img src="{{ asset('uploads/images/students/' . $student->profile_image) }}"
+                        <img src="{{ asset('uploads/images/students/' . $student->image()->url) }}"
                             alt="{{ $student->name }}" class="img-fluid rounded-circle shadow-sm border" width="300"
                             height="300">
                     </div>

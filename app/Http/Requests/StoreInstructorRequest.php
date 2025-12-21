@@ -29,6 +29,8 @@ class StoreInstructorRequest extends FormRequest
             'salary' => 'required|numeric|min:0',
             'gender' => 'required|in:m,f',
             'password' => 'required|string|min:6',
+            'profile_img' => 'nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048',
+
         ];
     }
 }

@@ -41,13 +41,16 @@ class StudentsController extends Controller
             $request->file('profile_img')->move(public_path('uploads/images/students'), $name);
         }
 
-        Student::create([
+        $student = Student::create([
             'name'          => $request->name,
             'email'         => $request->email,
-            'profile_image' => $name,
             'date_of_birth' => $request->birth_date,
             'gender'        => $request->gender,
             'password'      => Hash::make($request->password),
+        ]);
+
+        $student->image()->create([
+            'url' => $name,
         ]);
 
         return redirect()->route('admin.students.index')
@@ -64,17 +67,20 @@ class StudentsController extends Controller
     {
         //dd($request->all());
 
-        $name = null;
 
         if ($request->profile_img) {
             $name = 'Edukate' . '_' . time() . '_' . rand() . '.' . $request->file('profile_img')->getClientOriginalExtension();
             $request->file('profile_img')->move(public_path('uploads/images/students'), $name);
+
+            $student->image()->updateOrCreate(
+                [], // match condition (empty means "first related record")
+                ['url' => $name]
+            );
         }
 
         $student->update([
             'name'          => $request->name,
             'email'         => $request->email,
-            'profile_image' => $name,
             'date_of_birth' => $request->birth_date,
             'gender'        => $request->gender,
         ]);

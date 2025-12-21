@@ -4,7 +4,7 @@
 
 @section('content')
 
-   
+
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h1 class="page-title">Add New Instructor</h1>
         <a href="{{ route('admin.instructors.index') }}" class="btn btn-secondary shadow-sm">
@@ -15,7 +15,7 @@
     <div class="card custom-card mb-4">
         <div class="card-header">Create Instructor</div>
         <div class="card-body">
-            <form action="{{ route('admin.instructors.store') }}" method="POST">
+            <form action="{{ route('admin.instructors.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row">
                     @foreach ([['name', 'Name', 'text'], ['email', 'Email', 'email'], ['major', 'Major', 'text'], ['salary', 'Salary ($)', 'number'], ['password', 'Password', 'password']] as [$field, $label, $type])
@@ -29,6 +29,15 @@
                             @enderror
                         </div>
                     @endforeach
+
+                    <div class="col-md-6 mb-3">
+                        <label for="profile_img" class="form-label">Profile Image</label>
+                        <input type="file" name="profile_img" id="profile_img"
+                            class="form-control @error('profile_img') is-invalid @enderror">
+                        @error('profile_img')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
 
                     <div class="col-md-6 mb-3">
                         <label for="qualification" class="form-label">Qualification</label>

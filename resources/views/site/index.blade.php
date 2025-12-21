@@ -38,20 +38,20 @@
                         </div>
                         <div class="col-3 px-0">
                             <div class="bg-primary text-center p-4">
-                                <h1 class="text-white" data-toggle="counter-up">1234</h1>
+                                <h1 class="text-white" data-toggle="counter-up">{{ $coursesCount }}</h1>
                                 <h6 class="text-uppercase text-white">Online<span class="d-block">Courses</span></h6>
                             </div>
                         </div>
                         <div class="col-3 px-0">
                             <div class="bg-secondary text-center p-4">
-                                <h1 class="text-white" data-toggle="counter-up">123</h1>
+                                <h1 class="text-white" data-toggle="counter-up">{{ $instructorsCount }}</h1>
                                 <h6 class="text-uppercase text-white">Skilled<span class="d-block">Instructors</span>
                                 </h6>
                             </div>
                         </div>
                         <div class="col-3 px-0">
                             <div class="bg-warning text-center p-4">
-                                <h1 class="text-white" data-toggle="counter-up">1234</h1>
+                                <h1 class="text-white" data-toggle="counter-up">{{ $studentsCount }}</h1>
                                 <h6 class="text-uppercase text-white">Happy<span class="d-block">Students</span></h6>
                             </div>
                         </div>
@@ -130,7 +130,25 @@
             </div>
         </div>
         <div class="owl-carousel courses-carousel">
-            <div class="courses-item position-relative">
+            @foreach ($courses as $course)
+                <div class="courses-item position-relative">
+                    <img class="img-fluid" src="{{ asset('uploads/images/courses/' . $course->image) }}" alt="">
+                    <div class="courses-text">
+                        <h4 class="text-center text-white px-3">{{ $course->name }}</h4>
+                        <div class="border-top w-100 mt-3">
+                            <div class="d-flex justify-content-between p-4">
+                                <span class="text-white"><i
+                                        class="fa fa-user mr-2"></i>{{ $course->instructor->name }}</span>
+                                <span class="text-white"><i class="fa fa-star mr-2"></i>4.5 <small>(250)</small></span>
+                            </div>
+                        </div>
+                        <div class="w-100 bg-white text-center p-4">
+                            <a class="btn btn-primary" href="{{ route('site.detail', $course->id) }}">Course Detail</a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+            {{--  <div class="courses-item position-relative">
                 <img class="img-fluid" src="{{ asset('site/img/courses-1.jpg') }}" alt="">
                 <div class="courses-text">
                     <h4 class="text-center text-white px-3">Web design & development courses for beginners</h4>
@@ -219,8 +237,11 @@
                         <a class="btn btn-primary" href="{{ route('site.detail') }}">Course Detail</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
+
+
+
         <div class="row justify-content-center bg-image mx-0 mb-5">
             <div class="col-lg-6 py-5">
                 <div class="bg-white p-5 my-5">
@@ -244,10 +265,10 @@
                             <div class="col-sm-6">
                                 <div class="form-group">
                                     <select class="custom-select bg-light border-0 px-3" style="height: 60px;">
-                                        <option selected>Select A courses</option>
-                                        <option value="1">courses 1</option>
-                                        <option value="2">courses 1</option>
-                                        <option value="3">courses 1</option>
+                                        <option selected>Select A course</option>
+                                        @foreach ($courses as $course)
+                                            <option value="{{ $course->id }}">{{ $course->name }}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -272,7 +293,28 @@
                 <h1 class="display-4">Meet Our Instructors</h1>
             </div>
             <div class="owl-carousel team-carousel position-relative" style="padding: 0 30px;">
-                <div class="team-item">
+                @foreach ($instructors as $instructor)
+                    <div class="team-item">
+                        <div class="position-relative" style="height: 330px; overflow: hidden;">
+                            <img class="position-absolute w-100 h-100"
+                                src="{{ asset('uploads/images/instructors/' . $instructor->image->url) }}"
+                                style="object-fit: cover;" alt="{{ $instructor->name }}">
+                        </div>
+                        <div class="bg-light text-center p-4">
+                            <h5 class="mb-3">{{ $instructor->name }}</h5>
+                            <p class="mb-2">{{ $instructor->courses()->latest()->first()?->name }}</p>
+                            <div class="d-flex justify-content-center">
+                                <a class="mx-1 p-1" href="#"><i class="fab fa-twitter"></i></a>
+                                <a class="mx-1 p-1" href="#"><i class="fab fa-facebook-f"></i></a>
+                                <a class="mx-1 p-1" href="#"><i class="fab fa-linkedin-in"></i></a>
+                                <a class="mx-1 p-1" href="#"><i class="fab fa-instagram"></i></a>
+                                <a class="mx-1 p-1" href="#"><i class="fab fa-youtube"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
+
+                {{-- <div class="team-item">
                     <img class="img-fluid w-100" src="{{ asset('site/img/team-1.jpg') }}" alt="">
                     <div class="bg-light text-center p-4">
                         <h5 class="mb-3">Instructor Name</h5>
@@ -327,7 +369,7 @@
                             <a class="mx-1 p-1" href="#"><i class="fab fa-youtube"></i></a>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>
@@ -351,7 +393,24 @@
                 </div>
                 <div class="col-lg-7">
                     <div class="owl-carousel testimonial-carousel">
-                        <div class="bg-white p-5">
+                        @foreach ($testimonials as $testimonial)
+                            <div class="bg-white p-5">
+                                <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
+                                <p>{{ $testimonial->comment }}</p>
+                                <div class="d-flex flex-shrink-0 align-items-center mt-4">
+
+                                    <img class="img-fluid mr-4" style="height: 80px; width: 80px; overflow: hidden;"
+                                        src="{{ asset('uploads/images/testimonials/' . $testimonial->image->url) }}"
+                                        alt="">
+                                    <div>
+                                        <h5>{{ $testimonial->student_name }}</h5>
+                                        <span>{{ $testimonial->specialization }}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        @endforeach
+
+                        {{-- <div class="bg-white p-5">
                             <i class="fa fa-3x fa-quote-left text-primary mb-4"></i>
                             <p>Sed et elitr ipsum labore dolor diam, ipsum duo vero sed sit est est ipsum eos clita est
                                 ipsum. Est nonumy tempor at kasd. Sed at dolor duo ut dolor, et justo erat dolor magna
@@ -378,7 +437,7 @@
                                     <span>Web Design</span>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

@@ -14,7 +14,7 @@
     <div class="card custom-card mb-4">
         <div class="card-header">Create Testimonial</div>
         <div class="card-body">
-            <form action="{{ route('admin.testimonials.store') }}" method="POST">
+            <form action="{{ route('admin.testimonials.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
 
                 <div class="row">
@@ -40,6 +40,15 @@
                         @enderror
                     </div>
 
+                    <div class="col-md-6 mb-3">
+                        <label for="img" class="form-label">Testimonial Image</label>
+                        <input type="file" name="img" id="img"
+                            class="form-control @error('img') is-invalid @enderror">
+                        @error('img')
+                            <div class="invalid-feedback">{{ $message }}</div>
+                        @enderror
+                    </div>
+
                     <!-- Comment -->
                     <div class="col-12 mb-3">
                         <label for="comment" class="form-label">Comment</label>
@@ -50,6 +59,8 @@
                         @enderror
                     </div>
                 </div>
+
+
 
                 <div class="d-flex justify-content-end mt-4">
                     <button type="submit" class="btn btn-primary me-2">

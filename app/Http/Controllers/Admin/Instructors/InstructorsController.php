@@ -30,7 +30,14 @@ class InstructorsController extends Controller
 
     public function store(StoreInstructorRequest $request)
     {
-        Instructor::create([
+        $name = null;
+
+        if ($request->profile_img) {
+            $name = 'Edukate' . '_' . time() . '_' . rand() . '.' . $request->file('profile_img')->getClientOriginalExtension();
+            $request->file('profile_img')->move(public_path('uploads/images/instructors'), $name);
+        }
+
+        $instructor = Instructor::create([
             'name'          => $request->name,
             'email'         => $request->email,
             'major'         => $request->major,
@@ -38,6 +45,10 @@ class InstructorsController extends Controller
             'salary'        => $request->salary,
             'gender'        => $request->gender,
             'password'      => Hash::make($request->password),
+        ]);
+
+        $instructor->image()->create([
+            'url' => $name,
         ]);
 
         return redirect()->route('admin.instructors.index')
@@ -53,6 +64,7 @@ class InstructorsController extends Controller
     public function update(UpdateInstructorRequest $request, Instructor $instructor)
     {
         //dd($request->all());
+
         $instructor->update([
             'name'          => $request->name,
             'email'         => $request->email,
@@ -63,6 +75,16 @@ class InstructorsController extends Controller
             /*  // Only update password if provided
             'password'      => $request->filled('password') ? bcrypt($request->password) : $instructor->password, */
         ]);
+
+        if ($request->profile_img) {
+            $name = 'Edukate' . '_' . time() . '_' . rand() . '.' . $request->file('profile_img')->getClientOriginalExtension();
+            $request->file('profile_img')->move(public_path('uploads/images/instructors'), $name);
+
+            $instructor->image()->updateOrCreate(
+                [], // match condition (empty means "first related record")
+                ['url' => $name]
+            );
+        }
 
         return redirect()->route('admin.instructors.index')
             ->with('success', 'Instructor updated successfully!');

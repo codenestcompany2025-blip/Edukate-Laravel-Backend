@@ -27,8 +27,27 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-6 pb-4">
-                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2" href="{{ route('site.detail') }}">
+                @foreach ($courses as $course)
+                    <div class="col-lg-4 col-md-6 pb-4">
+                        <a class="courses-list-item position-relative d-block overflow-hidden mb-2"
+                            href="{{ route('site.detail', $course->id) }}">
+                            <img class="img-fluid" src="{{ asset('uploads/images/courses/' . $course->image->url) }}" alt="">
+                            <div class="courses-text">
+                                <h4 class="text-center text-white px-3">{{ $course->name }}</h4>
+                                <div class="border-top w-100 mt-3">
+                                    <div class="d-flex justify-content-between p-4">
+                                        <span class="text-white"><i class="fa fa-user mr-2"></i>{{ $course->instructor->name }}</span>
+                                        <span class="text-white"><i class="fa fa-star mr-2"></i>4.5
+                                            <small>(250)</small></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+                {{-- <div class="col-lg-4 col-md-6 pb-4">
+                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2"
+                        href="{{ route('site.detail') }}">
                         <img class="img-fluid" src="{{ asset('site/img/courses-1.jpg') }}" alt="">
                         <div class="courses-text">
                             <h4 class="text-center text-white px-3">Web design & development courses for
@@ -44,7 +63,8 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 pb-4">
-                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2" href="{{ route('site.detail') }}">
+                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2"
+                        href="{{ route('site.detail') }}">
                         <img class="img-fluid" src="{{ asset('site/img/courses-2.jpg') }}" alt="">
                         <div class="courses-text">
                             <h4 class="text-center text-white px-3">Web design & development courses for
@@ -60,7 +80,8 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 pb-4">
-                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2" href="{{ route('site.detail') }}">
+                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2"
+                        href="{{ route('site.detail') }}">
                         <img class="img-fluid" src="{{ asset('site/img/courses-3.jpg') }}" alt="">
                         <div class="courses-text">
                             <h4 class="text-center text-white px-3">Web design & development courses for
@@ -76,7 +97,8 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 pb-4">
-                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2" href="{{ route('site.detail') }}">
+                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2"
+                        href="{{ route('site.detail') }}">
                         <img class="img-fluid" src="{{ asset('site/img/courses-4.jpg') }}" alt="">
                         <div class="courses-text">
                             <h4 class="text-center text-white px-3">Web design & development courses for
@@ -92,7 +114,8 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 pb-4">
-                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2" href="{{ route('site.detail') }}">
+                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2"
+                        href="{{ route('site.detail') }}">
                         <img class="img-fluid" src="{{ asset('site/img/courses-5.jpg') }}" alt="">
                         <div class="courses-text">
                             <h4 class="text-center text-white px-3">Web design & development courses for
@@ -108,7 +131,8 @@
                     </a>
                 </div>
                 <div class="col-lg-4 col-md-6 pb-4">
-                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2" href="{{ route('site.detail') }}">
+                    <a class="courses-list-item position-relative d-block overflow-hidden mb-2"
+                        href="{{ route('site.detail') }}">
                         <img class="img-fluid" src="{{ asset('site/img/courses-6.jpg') }}" alt="">
                         <div class="courses-text">
                             <h4 class="text-center text-white px-3">Web design & development courses for
@@ -122,7 +146,7 @@
                             </div>
                         </div>
                     </a>
-                </div>
+                </div> --}}
                 <div class="col-12">
                     <nav aria-label="Page navigation">
                         <ul class="pagination pagination-lg justify-content-center mb-0">

@@ -44,15 +44,18 @@ class CoursesController extends Controller
             $request->file('image')->move(public_path('uploads/images/courses'), $name);
         }
 
-        Course::create([
+        $course = Course::create([
             'name'          => $request->name,
             'description'   => $request->description,
             'price'         => $request->price,
             'duration'      => $request->duration,
-            'image'         => $name,
             'skill_level'   => $request->skill_level,
             'instructor_id' => $request->instructor_id,
             'category_id'   => $request->category_id,
+        ]);
+
+        $course->image()->create([
+            'url' => $name,
         ]);
 
         return redirect()->route('admin.courses.index')
@@ -70,11 +73,15 @@ class CoursesController extends Controller
 
     public function update(CourseRequest $request, Course $course)
     {
-        $name = null;
 
         if ($request->image) {
             $name = 'Edukate' . '_' . time() . '_' . rand() . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->move(public_path('uploads/images/courses'), $name);
+
+            $course->image()->updateOrCreate(
+                [], // match condition (empty means "first related record")
+                ['url' => $name]
+            );
         }
 
         $course->update([
@@ -82,7 +89,6 @@ class CoursesController extends Controller
             'description'   => $request->description,
             'price'         => $request->price,
             'duration'      => $request->duration,
-            'image'         => $name,
             'skill_level'   => $request->skill_level,
             'instructor_id' => $request->instructor_id,
             'category_id'   => $request->category_id,

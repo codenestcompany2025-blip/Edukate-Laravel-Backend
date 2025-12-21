@@ -18,4 +18,7 @@ class Student extends Authenticatable
         'date_of_birth' => 'date',
     ];
 
+    public function image() {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

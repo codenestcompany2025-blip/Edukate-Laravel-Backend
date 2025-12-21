@@ -17,7 +17,15 @@ class Course extends Model
         return $this->belongsTo(Instructor::class);
     }
 
+    public function lectures() {
+        return $this->belongsTo(Lecture::class);
+    }
+
     public function category() {
         return $this->belongsTo(Category::class);
+    }
+
+    public function image() {
+        return $this->morphOne(Image::class, 'imageable');
     }
 }

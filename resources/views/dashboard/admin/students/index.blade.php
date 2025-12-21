@@ -54,8 +54,8 @@
                                 <td>{{ $student->email }}</td>
 
                                 <td>
-                                    @if ($student->profile_image)
-                                        <img src="{{ asset('uploads/images/students/' . $student->profile_image) }}"
+                                    @if ($student->image)
+                                        <img src="{{ asset('uploads/images/students/' . $student->image->url) }}"
                                             alt="{{ $student->name }}" class="img-thumbnail rounded-circle" width="50"
                                             height="50">
                                     @else

@@ -17,4 +17,8 @@ class Instructor extends Authenticatable
     public function courses() {
         return $this->hasMany(Course::class);
     }
+
+    public function image() {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }
