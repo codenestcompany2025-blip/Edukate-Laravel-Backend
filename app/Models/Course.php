@@ -28,4 +28,15 @@ class Course extends Model
     public function image() {
         return $this->morphOne(Image::class, 'imageable');
     }
+
+     public function students()
+    {
+        return $this->belongsToMany(Student::class, 'student_courses');
+    }
+
+    public function studentCourses()
+    {
+        return $this->hasMany(StudentCourse::class);
+    }
+
 }

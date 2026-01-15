@@ -8,8 +8,10 @@ use App\Models\Course;
 use App\Models\Instructor;
 use App\Models\Lecture;
 use App\Models\Student;
+use App\Models\StudentCourse;
 use App\Models\Testimonial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class SiteController extends Controller
 {
@@ -76,5 +78,29 @@ class SiteController extends Controller
     {
         $testimonials = Testimonial::all();
         return view('site.testimonial', compact('testimonials'));
+    }
+
+    function registerCourse(Request $request)
+    {
+        $student = Student::query()->where('email', $request->email)->first();
+        $message = 'You are successfully registered in the course!';
+        if (!$student) {
+            $student = Student::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->name . '123'),
+            ]);
+            $message .= "\nYour password = your name followed by 123";
+        } else if ($student->courses->contains($request->selected_course)) {
+            $message = 'You are already registered in this course!';
+            return redirect()->to(url()->previous() . '#signup-form')
+                ->with('error', $message);
+        }
+        StudentCourse::create([
+            'student_id' => $student->id,
+            'course_id' => $request->selected_course,
+        ]);
+        return redirect()->to(url()->previous() . '#signup-form')
+            ->with('success', $message);
     }
 }

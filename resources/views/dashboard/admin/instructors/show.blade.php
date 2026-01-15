@@ -20,7 +20,7 @@
             <div class="row g-4 align-items-center">
                 @if ($instructor->image)
                     <div class="col-md-4 text-center">
-                        <img src="{{ asset('uploads/images/instructors/' . $instructor->image()->url) }}"
+                        <img src="{{ asset('uploads/images/instructors/' . $instructor->image->url) }}"
                             alt="{{ $instructor->name }}" class="img-fluid rounded-circle shadow-sm border" width="300"
                             height="300">
                     </div>

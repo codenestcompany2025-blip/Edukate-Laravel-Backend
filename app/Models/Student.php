@@ -12,13 +12,24 @@ class Student extends Authenticatable
 {
     use HasFactory, SoftDeletes;
 
-    protected $guarded = []; 
+    protected $guarded = [];
 
     protected $casts = [
         'date_of_birth' => 'date',
     ];
 
-    public function image() {
+    public function image()
+    {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'student_courses');
+    }
+
+    public function studentCourses()
+    {
+        return $this->hasMany(StudentCourse::class);
     }
 }

@@ -88,7 +88,7 @@
 
                             {{-- Left: Icon + Title + Details --}}
                             <div class="d-flex align-items-start">
-                                <img src="{{ asset('uploads/images/courses/' . $course->image) }}"
+                                <img src="{{ asset('uploads/images/courses/' . $course->image->url) }}"
                                     alt="{{ $course->name }}" class="thumb mr-3">
 
                                 <div>
