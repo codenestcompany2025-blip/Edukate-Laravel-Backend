@@ -46,6 +46,28 @@ class SiteController extends Controller
         return view('site.join');
     }
 
+    function joinSubmit(Request $request)
+    {
+        $request->validate([
+            'name'        => 'required|string|max:255',
+            'email'       => 'required|string|email|max:255|unique:students,email',
+            'password' => 'required|string|min:8|confirmed',
+            'date_of_birth'  => 'required|date|before:today',
+            'gender'      => 'required|in:m,f',
+        ]);
+
+        Student::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'gender' => $request->gender,
+            'date_of_birth' => $request->date_of_birth,
+        ]);
+
+        return redirect()->to(url()->previous() . '#joinus-form')
+            ->with('success', "You are Joined Successfully !");
+    }
+
     function course()
     {
         $courses = Course::all();
@@ -82,6 +104,7 @@ class SiteController extends Controller
 
     function registerCourse(Request $request)
     {
+        /*
         $student = Student::query()->where('email', $request->email)->first();
         $message = 'You are successfully registered in the course!';
         if (!$student) {
@@ -100,6 +123,37 @@ class SiteController extends Controller
             'student_id' => $student->id,
             'course_id' => $request->selected_course,
         ]);
+        return redirect()->to(url()->previous() . '#signup-form')
+            ->with('success', $message);
+        */
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'selected_course' => 'required|exists:courses,id',
+        ]);
+
+        $student = Student::firstOrCreate(
+            ['email' => $request->email],
+            [
+                'name' => $request->name,
+                'password' => Hash::make($request->name . '123'),
+            ]
+        );
+
+        if ($student->studentCourses()->where('course_id', $request->selected_course)->exists()) {
+            return redirect()->to(url()->previous() . '#signup-form')
+                ->with('error', 'You are already registered in this course!');
+        }
+
+        $student->courses()->attach($request->selected_course);
+
+        $message = 'You are successfully registered in the course!';
+
+        if ($student->wasRecentlyCreated) {
+            $message .= "<br>Your password = your name followed by 123"; // or send email
+        }
+
         return redirect()->to(url()->previous() . '#signup-form')
             ->with('success', $message);
     }

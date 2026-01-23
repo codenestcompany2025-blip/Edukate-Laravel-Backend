@@ -39,7 +39,7 @@
                     <div class="col-md-6 mb-3">
                         <label for="password" class="form-label">Password</label>
                         <input type="password" name="password" id="password"
-                            class="form-control @error('password') is-invalid @enderror" value="{{ old('email') }}" required>
+                            class="form-control @error('password') is-invalid @enderror" value="{{ old('password') }}" required>
                         @error('password')
                             <div class="invalid-feedback">{{ $message }}</div>
                         @enderror
