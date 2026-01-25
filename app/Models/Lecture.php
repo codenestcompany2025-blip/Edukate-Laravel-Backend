@@ -11,4 +11,8 @@ class Lecture extends Model
     use HasFactory, SoftDeletes;
     protected $guarded = [];
 
+    public function course() {
+        return $this->belongsTo(Course::class);
+    }
+
 }

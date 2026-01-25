@@ -1,6 +1,4 @@
-@extends('dashboard.admin.master')
-
-@section('title', 'Admin Dashboard')
+@extends('dashboard.master')
 
 @section('css')
     <style>
@@ -23,6 +21,8 @@
         }
     </style>
 @endsection
+
+@section('title', 'Admin Dashboard')    
 
 @section('content')
 

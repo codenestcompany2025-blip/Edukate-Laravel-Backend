@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('admin/dashboard')->name('admin.')->middleware('auth:admin')->group(function () {
-    Route::get('/', [AdminController::class, 'index'])->name('dashboard');
+    Route::get('/', [AdminController::class, 'index'])->name('dashboard')->defaults('guard', 'admin');;
 
     Route::resource('instructors', InstructorsController::class);
     Route::resource('students', StudentsController::class);

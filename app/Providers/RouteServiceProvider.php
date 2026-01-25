@@ -58,7 +58,7 @@ class RouteServiceProvider extends ServiceProvider
 
                 Route::middleware(['auth:' . $guard])->group(function () use ($guard) {
                     Route::post('logout', 'logout')->name('logout.submit')->defaults('guard', $guard);
-                    Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', $guard);
+                 //   Route::get('dashboard', 'dashboard')->name('dashboard')->defaults('guard', $guard);
                 });
             });
         });

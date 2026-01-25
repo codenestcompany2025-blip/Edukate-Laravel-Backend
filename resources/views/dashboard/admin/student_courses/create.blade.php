@@ -1,4 +1,4 @@
-@extends('dashboard.admin.master')
+@extends('dashboard.master')
 
 @section('title', 'Add Student Course')
 
